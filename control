@@ -1,0 +1,8 @@
+Package: cum.0xilis.unsigncuts
+Name: Unsigncuts
+Author: Snoolie K
+Description: Import unsigned shortcut files
+Maintainer: Snoolie K
+Architecture: iphoneos-arm
+Section: Tweaks
+Version: 1.0.0
