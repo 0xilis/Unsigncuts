@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>Unsigncuts</string>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>label</key>
+			<string>Badger</string>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Get Badger for $0.99 on Havoc</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>badger@2x.png</string>
+			<key>action</key>
+			<string>buyBadger</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Unsigncuts</string>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string></string>
+			<key>cell</key>
+			<string>PSStaticTextCell</string>
+			<key>height</key>
+			<string>133</string>
+			<key>icon</key>
+			<string>UnsigncutsBanner.png</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Enable Invalid Signatures</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>cum.0xilis.unsigncutsprefs</string>
+			<key>key</key>
+			<string>isInvalidSignatureEnabled</string>
+			<key>PostNotification</key>
+			<string>cum.0xilis.unsigncuts/ReloadPrefs</string>
+			<key>id</key>
+			<string>SWITCH_ID</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Allow Non-Contacts</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>cum.0xilis.unsigncutsprefs</string>
+			<key>key</key>
+			<string>isAllowAnyContactEnabled</string>
+			<key>PostNotification</key>
+			<string>cum.0xilis.unsigncuts/ReloadPrefs</string>
+			<key>id</key>
+			<string>SWITCH_ID</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Contact</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>My GitHub</string>
+			<key>icon</key>
+			<string>github@2x.png</string>
+			<key>action</key>
+			<string>openGitHub</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>My Reddit</string>
+			<key>icon</key>
+			<string>reddit@2x.png</string>
+			<key>action</key>
+			<string>openReddit</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>My Twitter</string>
+			<key>icon</key>
+			<string>twitter.png</string>
+			<key>action</key>
+			<string>openTwitter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

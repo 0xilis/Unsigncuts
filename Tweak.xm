@@ -1,4 +1,7 @@
 #import <UIKit/UIKit.h>
+#import <Cephei/HBPreferences.h>
+
+HBPreferences *preferences;
 
 @interface WFSharingSettings : NSObject
 +(BOOL)isPrivateSharingEnabled;
@@ -36,7 +39,7 @@
 @end
 
 %hook WFShortcutExtractor
--(bool)allowsOldFormatFile {
+-(bool)allowsOldFormatFile { //the main thing that allows this
  return YES;
 }
 %end
@@ -46,32 +49,36 @@
  return YES;
 }
 %end
-//below is WIP!!
-//lock these behind a optional setting to enable incorrectly signed shortcuts to be imported
+
+%group unsigncutsInvalidSignature
 %hook WFSharedShortcut
--(void)signingStatus {
+-(NSString *)signingStatus {
  return @"APPROVED";
 }
 %end
 %hook WFGalleryWorkflow
--(void)signingStatus {
+-(NSString *)signingStatus {
  return @"APPROVED";
 }
 %end
+%end
+
 %hook WFShortcutSigningContext
+%group unsigncutsInvalidSignature
 -(BOOL)validateAppleIDCertificatesWithError:(NSError**)arg0 {
  return YES;
 }
 -(BOOL)validateSigningCertificateChainWithICloudIdentifier:(*id)arg0 error:(NSError**)arg1 {
  return YES;
 }
--(BOOL)validateWithSigningMethod:(*NSInteger)arg0 error:(NSError**)arg1 {
+-(BOOL)validateWithSigningMethod:(long long*)arg0 error:(NSError**)arg1 {
  return YES;
 }
--(BOOL)validateWithSigningMethod:(*NSInteger)arg0 iCloudIdentifier:(*id)arg1 error:(NSError**)arg2 {
+-(BOOL)validateWithSigningMethod:(long long*)arg0 iCloudIdentifier:(*id)arg1 error:(NSError**)arg2 {
  return YES;
 }
-//lock this behind a optional setting to enable contact signed shortcuts to be imported even if you don't have a matching contact with them
+%end
+%group unsigncutsAllowAnyContact
 -(void)validateAppleIDValidationRecordWithCompletion:(void (^)(int, int, int, id))completion {
  //the following is a rebuild / reverse engineered of the actual method WorkflowKit has for this
  //but no longer check if sha256 phone/email hashes match in contact shared importing, just auto run completion block
@@ -89,3 +96,12 @@
  }
 }
 %end
+%end
+
+%ctor {
+ preferences = [[HBPreferences alloc] initWithIdentifier:@"cum.0xilis.unsigncutsprefs"];
+ //if ([preferences boolForKey:@"isUnsigncutsEnabled"]) %init(unsigncuts);
+ if ([preferences boolForKey:@"isInvalidSignatureEnabled"]) %init(unsigncutsInvalidSignature);
+ if ([preferences boolForKey:@"isAllowAnyContactEnabled"]) %init(unsigncutsAllowAnyContact);
+ %init(_ungrouped);
+}
