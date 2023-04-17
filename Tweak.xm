@@ -38,6 +38,7 @@ HBPreferences *preferences;
 @property (retain, nonatomic) NSData *signingPublicKeySignature; // ivar: _signingPublicKeySignature
 @end
 
+%group unsigncuts
 %hook WFShortcutExtractor
 -(bool)allowsOldFormatFile { //the main thing that allows this
  return YES;
@@ -49,36 +50,10 @@ HBPreferences *preferences;
  return YES;
 }
 %end
-
-%group unsigncutsInvalidSignature
-%hook WFSharedShortcut
--(NSString *)signingStatus {
- return @"APPROVED";
-}
-%end
-%hook WFGalleryWorkflow
--(NSString *)signingStatus {
- return @"APPROVED";
-}
-%end
 %end
 
-%hook WFShortcutSigningContext
-%group unsigncutsInvalidSignature
--(BOOL)validateAppleIDCertificatesWithError:(NSError**)arg0 {
- return YES;
-}
--(BOOL)validateSigningCertificateChainWithICloudIdentifier:(*id)arg0 error:(NSError**)arg1 {
- return YES;
-}
--(BOOL)validateWithSigningMethod:(long long*)arg0 error:(NSError**)arg1 {
- return YES;
-}
--(BOOL)validateWithSigningMethod:(long long*)arg0 iCloudIdentifier:(*id)arg1 error:(NSError**)arg2 {
- return YES;
-}
-%end
 %group unsigncutsAllowAnyContact
+%hook WFShortcutSigningContext
 -(void)validateAppleIDValidationRecordWithCompletion:(void (^)(int, int, int, id))completion {
  //the following is a rebuild / reverse engineered of the actual method WorkflowKit has for this
  //but no longer check if sha256 phone/email hashes match in contact shared importing, just auto run completion block
@@ -100,8 +75,6 @@ HBPreferences *preferences;
 
 %ctor {
  preferences = [[HBPreferences alloc] initWithIdentifier:@"cum.0xilis.unsigncutsprefs"];
- //if ([preferences boolForKey:@"isUnsigncutsEnabled"]) %init(unsigncuts);
- if ([preferences boolForKey:@"isInvalidSignatureEnabled"]) %init(unsigncutsInvalidSignature);
+ if ([preferences boolForKey:@"isUnsigncutsEnabled"]) %init(unsigncuts);
  if ([preferences boolForKey:@"isAllowAnyContactEnabled"]) %init(unsigncutsAllowAnyContact);
- %init(_ungrouped);
 }

@@ -14,6 +14,7 @@ Unsigncuts_CFLAGS = -fobjc-arc
 Unsigncuts_EXTRA_FRAMEWORKS = Cephei
 Unsigncuts_USE_SUBSTRATE = 0
 Unsigncuts_LOGOS_DEFAULT_GENERATOR = internal
+# THEOS_PACKAGE_SCHEME=rootless
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 SUBPROJECTS += unsigncutsprefs

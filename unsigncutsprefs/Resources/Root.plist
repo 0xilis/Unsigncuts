@@ -40,15 +40,15 @@
 		</dict>
 		<dict>
 			<key>label</key>
-			<string>Enable Invalid Signatures</string>
+			<string>Enable Unsigncuts</string>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<false/>
+			<true/>
 			<key>defaults</key>
 			<string>cum.0xilis.unsigncutsprefs</string>
 			<key>key</key>
-			<string>isInvalidSignatureEnabled</string>
+			<string>isUnsigncutsEnabled</string>
 			<key>PostNotification</key>
 			<string>cum.0xilis.unsigncuts/ReloadPrefs</string>
 			<key>id</key>
